@@ -15,46 +15,38 @@ server.register_introspection_functions()
 
 # Register a function under a different name
 def suma_function(x, y):
-    x = int(x)
-    y = int(y)
-    suma = s.suma(x, y)
-    server.register_function(suma, 'suma')
+    suma = s.suma_server(x, y)
+    return suma
+server.register_function(suma_function, 'suma')
 
 def resta_function(x, y):
-    x = int(x)
-    y = int(y)
-    return x - y
+    resta = s.resta_server(x, y)
+    return resta
 server.register_function(resta_function, 'resta')
 
 def multiplicacion_function(x, y):
-    x = int(x)
-    y = int(y)
-    return x * y
+    multiplicacion = s.multiplicacion_server(x, y)
+    return multiplicacion
 server.register_function(multiplicacion_function, 'multiplicacion')
 
 def division_function(x, y):
-    x = int(x)
-    y = int(y)
-    return x / y
+    division = s.division_server(x, y)
+    return division
 server.register_function(division_function, 'division')
 
 def potenciacion_function(x, y):
-    x = int(x)
-    y = int(y)
-    return pow(x, y)
+    potenciacion = s.potenciacion_server(x, y)
+    return potenciacion
 server.register_function(potenciacion_function, 'potenciacion')
 
 def radicacion_function(x, y):
-    x = int(x)
-    y = float(y)
-    c = float(1.0 / y)
-    return pow(x, c)
+    radicacion = s.radicacion_server(x, y)
+    return radicacion
 server.register_function(radicacion_function, 'radicacion')
 
 def logaritmo_function(x, y):
-    x = int(x)
-    y = int(y)
-    return log(x, y)
+    logaritmo = s.logaritmo_server(x, y)
+    return logaritmo
 server.register_function(logaritmo_function, 'logaritmo')
 
 
