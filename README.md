@@ -11,7 +11,12 @@
 4. Comunicación Grupal
 5. UDP - Servidores de operaciones independientes
 6. RPC - Servidores de operaciones independientes
+7. Registro de procesos en un archivo BD
 
-### Project I
+### Proyecto I
 1. Berkeley algorithm
 2. Cristian's algorithm
+
+### Proyecto II
+
+![Proyecto Final](src/final.jpg)
