@@ -6,17 +6,41 @@ from socket import *
 
 host = "127.0.0.1" # set to IP address of target computer
 buf = 1024
-id_host = []
+id_host = [3000, 5000]
 process_host = []
 UDPSock = socket(AF_INET, SOCK_DGRAM)
 addr_self = (host, 4000)
 UDPSock.bind(addr_self)
 
-# def berckeley():
+server_time = clock.getTime()
+
+def berckeley():
+    new_time = 0
+    for i in id_host:
+        address_slave = (host, i)
+        UDPSock.sendto("PLEASE TIME", address_slave)
+        (time_slave, addr_self) = UDPSock.recvfrom(buf)
+        new_time += int(time_slave)
+
+    new_time /= len(id_host)
+
+    for i in id_host:
+        address_slave = (host, i)
+        UDPSock.sendto("NEW TIME", address_slave)
+        UDPSock.sendto(str(new_time), address_slave)
+
+    print clock.toTime(new_time)
+    # print (clock.toTime(int(host_rec)))
 
 
 
-print(clock.toTime(clock.toSeconds()))
+
+if __name__ == '__main__':
+    berckeley()
+
+
+
+# print(clock.toTime(clock.toSeconds()))
 
 # while process_act < len(process):
 #   # addr = (host, i)
