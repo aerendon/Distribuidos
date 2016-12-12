@@ -3,14 +3,13 @@ import time
 import os
 import clock
 from socket import *
+import glob
 
 host = "127.0.0.1" # set to IP address of target computer
 buf = 1024
 UDPSock = socket(AF_INET, SOCK_DGRAM)
-
 addr_self = (host, 5000)
 UDPSock.bind(addr_self)
-
 addr_server = (host, 4000)
 
 time_slave = clock.toSeconds()
@@ -25,13 +24,25 @@ def berckeley():
         (new_time, addr_self) = UDPSock.recvfrom(buf)
         return int(new_time)
 
+def files():
+    return glob.glob("*.txt")
 
-    #
-    # print time_slave
+def contentFiles(files):
+    content_files = []
+    for i in files:
+        content = open(i, 'r')
+        # print content.read()
+        content_files.append(content.read())
+        content.close()
+
+    return content_files
+
 
 if __name__ == '__main__':
     time_slave = clock.toTime(berckeley())
     print time_slave
+    # slaveFiles = files()
+    # contentFiles(slaveFiles)
 
 
 # signal = "1"

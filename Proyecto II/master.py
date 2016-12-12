@@ -6,7 +6,7 @@ from socket import *
 
 host = "127.0.0.1" # set to IP address of target computer
 buf = 1024
-id_host = [3000, 5000]
+id_host = [3000, 3030, 5000]
 process_host = []
 UDPSock = socket(AF_INET, SOCK_DGRAM)
 addr_self = (host, 4000)
@@ -32,6 +32,8 @@ def berckeley():
     print clock.toTime(new_time)
     # print (clock.toTime(int(host_rec)))
 
+def filesCopy():
+    
 
 
 
