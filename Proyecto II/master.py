@@ -1,6 +1,7 @@
 from socket import *
 import os
 import clock
+import random
 
 host = "127.0.0.1"  # set to IP address of target computer
 buf = 1024
@@ -13,6 +14,7 @@ UDPSock.bind(addr_self)
 server_time = clock.getTime()
 
 files_slaves = {}
+copy_files_slaves = {}
 
 
 def berckeley():
@@ -36,25 +38,48 @@ def berckeley():
 
 def filesCopy():
     for i in id_host:
-        print "Slave search" + str(i)
+        # print "Slave search" + str(i)
         address_slave = (host, i)
         UDPSock.sendto("FILE", address_slave)
         (size, addr_self) = UDPSock.recvfrom(buf)
         files_slaves[i] = []
-        print size
+        # print size
         for __ in range(int(size)):
             # (name, addr_self) = UDPSock.recvfrom(buf)
             # print name
             (name, addr_self) = UDPSock.recvfrom(buf)
             (content, addr_self) = UDPSock.recvfrom(buf)
-            files_slaves[i].append([name, content])
+            files_slaves[i].append([str(i) + name, content])
 
-        print "slave " + str(i) +" files"
-        print files_slaves[i]
+        # print "slave " + str(i) +" files"
+        # print files_slaves[i]
+
+
+def randomServer(init, end):
+    new = random.randint(init, end)
+    return new
+
+
+def makeCopy():
+    for copies in files_slaves:
+        # print files_slaves[copies]
+        files = files_slaves[copies]
+        for name, content in files:
+            print name
+
+
+        # copy = randomServer(0, len(id_host) - 1)
+        # while(id_host[copy] == i):
+        #     copy = randomServer(0, len(id_host) - 1) 
+        #
+        # print "  "
+        # print i
+        # print id_host[copy]
 
 if __name__ == '__main__':
     # berckeley()
     filesCopy()
+    makeCopy()
     # print files_slaves
 
 
