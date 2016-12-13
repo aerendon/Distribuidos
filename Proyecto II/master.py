@@ -65,22 +65,23 @@ def makeCopy():
         # print files_slaves[copies]
         files = files_slaves[copies]
         for name, content in files:
-            print name
+            copy_files_slaves[name] = []
+            # print copies
+            # print name
+
+            copy = randomServer(0, len(id_host) - 1)
+            while(id_host[copy] == copies):
+                copy = randomServer(0, len(id_host) - 1)
+            # print str(copies) + "Se va para -> " + str(copy)
+            copy_files_slaves[name].append([id_host[copy], content])
 
 
-        # copy = randomServer(0, len(id_host) - 1)
-        # while(id_host[copy] == i):
-        #     copy = randomServer(0, len(id_host) - 1) 
-        #
-        # print "  "
-        # print i
-        # print id_host[copy]
 
 if __name__ == '__main__':
     # berckeley()
     filesCopy()
     makeCopy()
-    # print files_slaves
+    print copy_files_slaves
 
 
 UDPSock.close()
