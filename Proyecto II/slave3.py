@@ -37,24 +37,25 @@ def contentFiles(files):
 
     return content_files
 
-def files():
-    return glob.glob("*.txt")
+def filesCopy():
+    slaveFiles = files()
+    files_str = contentFiles(slaveFiles)
+    (message, addr_self) = UDPSock.recvfrom(buf)
+    if message == "FILE":
+        UDPSock.sendto(str(len(files_str)), addr_server)
+        print files_str
+        for i in files_str:
+            UDPSock.sendto(i[0], addr_server)
+            UDPSock.sendto(i[1], addr_server)
 
-def contentFiles(files):
-    content_files = []
-    for i in files:
-        content = open(i, 'r')
-        # print content.read()
-        content_files.append(content.read())
-        content.close()
-
-    return content_files
 
 if __name__ == '__main__':
-    time_slave = clock.toTime(berckeley())
-    print time_slave
+    #time_slave = clock.toTime(berckeley())
+    #print time_slave
     # slaveFiles = files()
-    # contentFiles(slaveFiles)
+    filesCopy()
+
+
 
 
 # signal = "1"
