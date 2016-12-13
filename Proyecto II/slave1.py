@@ -8,13 +8,12 @@ import glob
 host = "127.0.0.1"  # set to IP address of target computer
 buf = 1024
 UDPSock = socket(AF_INET, SOCK_DGRAM)
-
 addr_self = (host, 3000)
 UDPSock.bind(addr_self)
-
 addr_server = (host, 4000)
 
 time_slave = clock.toSeconds()
+
 
 
 def berckeley():
@@ -60,6 +59,8 @@ if __name__ == '__main__':
     #time_slave = clock.toTime(berckeley())
     #print time_slave
     # slaveFiles = files()
+    server_files = contentFiles(files())
+    print server_files
     filesCopy()
 
 

@@ -56,6 +56,8 @@ if __name__ == '__main__':
     #time_slave = clock.toTime(berckeley())
     #print time_slave
     # slaveFiles = files()
+    server_files = contentFiles(files())
+    print server_files
     filesCopy()
 
 
