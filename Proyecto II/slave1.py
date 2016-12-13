@@ -50,9 +50,10 @@ def filesCopy():
     if message == "FILE":
         UDPSock.sendto(str(len(files_str)), addr_server)
         print files_str
-        for i in files_str:
-            UDPSock.sendto(i[0], addr_server)
-            UDPSock.sendto(i[1], addr_server)
+        for name, content in files_str:
+            # UDPSock.sendto("ARCHIVO", addr_server)
+            UDPSock.sendto(name, addr_server)
+            UDPSock.sendto(content, addr_server)
 
 
 if __name__ == '__main__':
@@ -61,16 +62,6 @@ if __name__ == '__main__':
     # slaveFiles = files()
     filesCopy()
 
-
-# signal = "1"
-#
-# while True:
-#   UDPSock.sendto("3000", addr_server)
-#   (process, addr_self) = UDPSock.recvfrom(buf)
-#   print "Tiene un proceso de " + process + "Seg"
-#
-#   time.sleep(int(process))
-#
 
 
 UDPSock.close()

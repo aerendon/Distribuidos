@@ -33,7 +33,7 @@ def contentFiles(files):
     for i in files:
         content = open(i, 'r')
         # print content.read()
-        content_files.append(content.read())
+        content_files.append([i, content.read()])
         content.close()
 
     return content_files
@@ -46,9 +46,10 @@ def filesCopy():
     if message == "FILE":
         UDPSock.sendto(str(len(files_str)), addr_server)
         print files_str
-        for i in files_str:
-            UDPSock.sendto(i[0], addr_server)
-            UDPSock.sendto(i[1], addr_server)
+        for name, content in files_str:
+            # UDPSock.sendto("ARCHIVO", addr_server)
+            UDPSock.sendto(name, addr_server)
+            UDPSock.sendto(content, addr_server)
 
 
 if __name__ == '__main__':
