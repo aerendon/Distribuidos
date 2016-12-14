@@ -88,13 +88,15 @@ def check(server_files):
 if __name__ == '__main__':
     # slaveFiles = files()
     while True:
-        # time_slave = clock.toTime(berckeley())
-        # print time_slave
-        server_files = contentFiles(files())
-        print server_files
-        filesCopy()
-        recieveCopy()
-        check(server_files)
+        (ok, addr_self) = UDPSock.recvfrom(buf)
+        if ok == "OK":
+            time_slave = clock.toTime(berckeley())
+            print time_slave
+            # server_files = contentFiles(files())
+            # # print server_files
+            # filesCopy()
+            # recieveCopy()
+            # check(server_files)
 
 
 

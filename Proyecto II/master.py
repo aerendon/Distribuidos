@@ -116,12 +116,15 @@ def check():
 
 if __name__ == '__main__':
     while True:
-        # berckeley()
-        filesCopy()
-        makeCopy()
-        sendCopy()
-        # print copy_files_slaves
-        check()
+        for port in id_host:
+            address_slave = (host, port)
+            UDPSock.sendto("OK", address_slave)
+        berckeley()
+        # filesCopy()
+        # makeCopy()
+        # sendCopy()
+        # # print copy_files_slaves
+        # check()
         time.sleep(5)
 
 UDPSock.close()
