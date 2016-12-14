@@ -76,12 +76,25 @@ def makeCopy():
             copy_files_slaves[name].append([id_host[copy], content])
 
 
+def sendCopy():
+    for copies in copy_files_slaves:
+        print copy_files_slaves[copies]
+        port, content = copy_files_slaves[copies][0]
+        address_slave = (host, port)
+        UDPSock.sendto("LOOP", address_slave)
+        UDPSock.sendto(copies, address_slave)
+        UDPSock.sendto(content, address_slave)
+
+    for port in id_host:
+        address_slave = (host, port)
+        UDPSock.sendto("FINISH", address_slave)
 
 if __name__ == '__main__':
     # berckeley()
     filesCopy()
     makeCopy()
-    print copy_files_slaves
+    sendCopy()
+    # print copy_files_slaves
 
 
 UDPSock.close()

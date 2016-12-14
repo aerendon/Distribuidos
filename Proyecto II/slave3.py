@@ -53,6 +53,26 @@ def filesCopy():
             UDPSock.sendto(content, addr_server)
 
 
+def createFile(path, content):
+    if os.path.exists(path):
+        f = file(path + ".copy", "r+")
+    else:
+        f = file(path + ".copy", "w")
+
+    f.write(content)
+
+def recieveCopy():
+    while True:
+        (init, addr_self) = UDPSock.recvfrom(buf)
+        if init == "FINISH":
+            break
+        else:
+            (name, addr_self) = UDPSock.recvfrom(buf)
+            (content, addr_self) = UDPSock.recvfrom(buf)
+            print name
+            print content
+            createFile(name, content)
+
 
 if __name__ == '__main__':
     #time_slave = clock.toTime(berckeley())
@@ -61,6 +81,7 @@ if __name__ == '__main__':
     server_files = contentFiles(files())
     print server_files
     filesCopy()
+    recieveCopy()
 
 
 
