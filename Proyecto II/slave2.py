@@ -93,9 +93,7 @@ if __name__ == '__main__':
             print server_files
             filesCopy()
             recieveCopy()
-            if check(server_files):
-                time_slave = (berckeley())
-                print "HORA DEL CAMBIO: " + str(clock.toTime(time_slave))
+            check(server_files)
 
 
 UDPSock.close()

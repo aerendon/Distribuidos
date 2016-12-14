@@ -110,7 +110,7 @@ def check():
                 (path, addr_self) = UDPSock.recvfrom(buf)
                 (content, addr_self) = UDPSock.recvfrom(buf)
                 updateFiles(port_server, path, content)
-                return True
+
 
 
 if __name__ == '__main__':
@@ -123,9 +123,8 @@ if __name__ == '__main__':
         makeCopy()
         sendCopy()
         # print copy_files_slaves
-        if check():
-            berckeley()
-            print "SI"
+        check()
+
         time.sleep(5)
 
 UDPSock.close()
