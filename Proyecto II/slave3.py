@@ -69,8 +69,8 @@ def recieveCopy():
         else:
             (name, addr_self) = UDPSock.recvfrom(buf)
             (content, addr_self) = UDPSock.recvfrom(buf)
-            print name
-            print content
+            # print name
+            # print content
             createFile(name, content)
 
 
@@ -84,19 +84,20 @@ def check(server_files):
             UDPSock.sendto("3030", addr_server)
             UDPSock.sendto(server_files_now[i][0], addr_server)
             UDPSock.sendto(server_files_now[i][1], addr_server)
+            return True
 
 if __name__ == '__main__':
     # slaveFiles = files()
     while True:
         (ok, addr_self) = UDPSock.recvfrom(buf)
         if ok == "OK":
-            time_slave = clock.toTime(berckeley())
-            print time_slave
-            # server_files = contentFiles(files())
-            # # print server_files
-            # filesCopy()
-            # recieveCopy()
-            # check(server_files)
+            server_files = contentFiles(files())
+            # print server_files
+            filesCopy()
+            recieveCopy()
+            if check(server_files):
+                time_slave = berckeley()
+                print "HORA DEL CAMBIO: " + str(clock.toTime(time_slave))
 
 
 

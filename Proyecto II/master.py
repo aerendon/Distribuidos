@@ -34,8 +34,7 @@ def berckeley():
         UDPSock.sendto("NEW TIME", address_slave)
         UDPSock.sendto(str(new_time), address_slave)
 
-    print clock.toTime(new_time)
-    # print (clock.toTime(int(host_rec)))
+    print (clock.toTime(int(host_rec)))
 
 
 def filesCopy():
@@ -106,12 +105,12 @@ def check():
         for __ in range(len(files_slaves[port])):
             (confirmation, addr_self) = UDPSock.recvfrom(buf)
             if confirmation == "CHANGE":
+
                 (port_server, addr_self) = UDPSock.recvfrom(buf)
                 (path, addr_self) = UDPSock.recvfrom(buf)
                 (content, addr_self) = UDPSock.recvfrom(buf)
                 updateFiles(port_server, path, content)
-                print " "
-                # print files_slaves
+                return True
 
 
 if __name__ == '__main__':
@@ -119,12 +118,14 @@ if __name__ == '__main__':
         for port in id_host:
             address_slave = (host, port)
             UDPSock.sendto("OK", address_slave)
-        berckeley()
-        # filesCopy()
-        # makeCopy()
-        # sendCopy()
-        # # print copy_files_slaves
-        # check()
+
+        filesCopy()
+        makeCopy()
+        sendCopy()
+        # print copy_files_slaves
+        if check():
+            berckeley()
+            print "SI"
         time.sleep(5)
 
 UDPSock.close()
