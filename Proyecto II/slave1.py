@@ -8,9 +8,9 @@ import glob
 host = "127.0.0.1"  # set to IP address of target computer
 buf = 1024
 UDPSock = socket(AF_INET, SOCK_DGRAM)
-addr_self = (host, 3000)
+addr_self = ("192.168.1.248", 3000)
 UDPSock.bind(addr_self)
-addr_server = (host, 4000)
+addr_server = ("192.168.1.205", 4000)
 
 time_slave = clock.toSeconds()
 

@@ -8,9 +8,12 @@ import random
 host = "127.0.0.1"  # set to IP address of target computer
 buf = 1024
 id_host = [3000, 3030, 5000]
+node01 = "192.168.1.248"
+node02 = "192.168.1.207"
+node03 = "192.168.1.203"
 process_host = []
 UDPSock = socket(AF_INET, SOCK_DGRAM)
-addr_self = (host, 4000)
+addr_self = ("192.168.1.205", 4000)
 UDPSock.bind(addr_self)
 
 server_time = clock.getTime()
@@ -18,10 +21,18 @@ server_time = clock.getTime()
 files_slaves = {}
 copy_files_slaves = {}
 
+def ips(ip):
+    if ip == 3000:
+        return node01
+    else if ip == 3030:
+        return node02
+    else if ip == 5000:
+        return node03
 
 def berckeley():
     new_time = 0
     for i in id_host:
+        host = ips(i)
         address_slave = (host, i)
         UDPSock.sendto("PLEASE TIME", address_slave)
         (time_slave, addr_self) = UDPSock.recvfrom(buf)
@@ -30,6 +41,7 @@ def berckeley():
     new_time /= len(id_host)
 
     for i in id_host:
+        host = ips(i)
         address_slave = (host, i)
         UDPSock.sendto("NEW TIME", address_slave)
         UDPSock.sendto(str(new_time), address_slave)
@@ -39,6 +51,7 @@ def berckeley():
 
 def filesCopy():
     for i in id_host:
+        host = ips(i)
         # print "Slave search" + str(i)
         address_slave = (host, i)
         UDPSock.sendto("FILE", address_slave)
@@ -87,6 +100,7 @@ def sendCopy():
         UDPSock.sendto(content, address_slave)
 
     for port in id_host:
+        host = ips(i)
         address_slave = (host, port)
         UDPSock.sendto("FINISH", address_slave)
 
@@ -100,6 +114,7 @@ def updateFiles(port, name, content):
 
 def check():
     for port in id_host:
+        host = ips(port)
         address_slave = (host, port)
         # print len(files_slaves[port])
         for __ in range(len(files_slaves[port])):
@@ -116,6 +131,7 @@ def check():
 if __name__ == '__main__':
     while True:
         for port in id_host:
+            host = ips(port)
             address_slave = (host, port)
             UDPSock.sendto("OK", address_slave)
 
