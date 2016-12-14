@@ -101,7 +101,7 @@ def sendCopy():
         UDPSock.sendto(content, address_slave)
 
     for port in id_host:
-        host = ips(i)
+        host = ips(port)
         address_slave = (host, port)
         UDPSock.sendto("FINISH", address_slave)
 
