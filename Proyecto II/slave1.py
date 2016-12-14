@@ -94,7 +94,7 @@ if __name__ == '__main__':
         if ok == "OK":
 
             server_files = contentFiles(files())
-            # print server_files
+            print server_files
             filesCopy()
             recieveCopy()
             if check(server_files):
