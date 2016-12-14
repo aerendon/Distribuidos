@@ -1,3 +1,5 @@
+#!/usr/bin/python
+import time
 from socket import *
 import os
 import clock
@@ -78,7 +80,7 @@ def makeCopy():
 
 def sendCopy():
     for copies in copy_files_slaves:
-        print copy_files_slaves[copies]
+        # print copy_files_slaves[copies]
         port, content = copy_files_slaves[copies][0]
         address_slave = (host, port)
         UDPSock.sendto("LOOP", address_slave)
@@ -89,13 +91,32 @@ def sendCopy():
         address_slave = (host, port)
         UDPSock.sendto("FINISH", address_slave)
 
-if __name__ == '__main__':
-    # berckeley()
-    filesCopy()
-    makeCopy()
-    sendCopy()
-    # print copy_files_slaves
+def check():
+    for port in id_host:
+        address_slave = (host, port)
+        # print len(files_slaves[port])
+        for __ in range(len(files_slaves[port])):
+            (confirmation, addr_self) = UDPSock.recvfrom(buf)
+            if confirmation == "CHANGE":
+                (port_server, addr_self) = UDPSock.recvfrom(buf)
+                (path, addr_self) = UDPSock.recvfrom(buf)
+                (content, addr_self) = UDPSock.recvfrom(buf)
 
+                print port_server
+                print path
+                print content
+                print " "
+
+
+if __name__ == '__main__':
+    while True:
+        # berckeley()
+        filesCopy()
+        makeCopy()
+        sendCopy()
+        # print copy_files_slaves
+        check()
+        time.sleep(5)
 
 UDPSock.close()
 os._exit(0)
