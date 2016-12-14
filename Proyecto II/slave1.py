@@ -74,6 +74,17 @@ def recieveCopy():
             print content
             createFile(name, content)
 
+def check(server_files):
+    server_files_now = contentFiles(files())
+    for i in range(len(server_files)):
+        if server_files[i][0] == server_files_now[i][0] and server_files[i][1] == server_files_now[i][1]:
+            UDPSock.sendto("OK", addr_server)
+        else:
+            UDPSock.sendto("CHANGE", addr_server)
+            UDPSock.sendto("3000", addr_server)
+            UDPSock.sendto(server_files_now[i][0], addr_server)
+            UDPSock.sendto(server_files_now[i][1], addr_server)
+
 if __name__ == '__main__':
     #time_slave = clock.toTime(berckeley())
     #print time_slave
@@ -83,15 +94,7 @@ if __name__ == '__main__':
         print server_files
         filesCopy()
         recieveCopy()
-        server_files_now = contentFiles(files())
-        for i in range(len(server_files)):
-            if server_files[i][0] == server_files_now[i][0] and server_files[i][1] == server_files_now[i][1]:
-                UDPSock.sendto("OK", addr_server)
-            else:
-                UDPSock.sendto("CHANGE", addr_server)
-                UDPSock.sendto("3000", addr_server)
-                UDPSock.sendto(server_files_now[i][0], addr_server)
-                UDPSock.sendto(server_files_now[i][1], addr_server)
+        check(server_files)
 
 
 UDPSock.close()
