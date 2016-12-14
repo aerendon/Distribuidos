@@ -24,9 +24,9 @@ copy_files_slaves = {}
 def ips(ip):
     if ip == 3000:
         return node01
-    elif ip == 3030:
-        return node02
     elif ip == 5000:
+        return node02
+    elif ip == 3030:
         return node03
 
 def berckeley():
