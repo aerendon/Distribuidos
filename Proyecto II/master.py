@@ -91,6 +91,14 @@ def sendCopy():
         address_slave = (host, port)
         UDPSock.sendto("FINISH", address_slave)
 
+
+def updateFiles(port, name, content):
+    for server in files_slaves:
+        for i in range(len(files_slaves[server]) - 1):
+            # print server
+            if files_slaves[server][i][0] == (port + name):
+                files_slaves[server][i][1] = content
+
 def check():
     for port in id_host:
         address_slave = (host, port)
@@ -101,11 +109,9 @@ def check():
                 (port_server, addr_self) = UDPSock.recvfrom(buf)
                 (path, addr_self) = UDPSock.recvfrom(buf)
                 (content, addr_self) = UDPSock.recvfrom(buf)
-
-                print port_server
-                print path
-                print content
+                updateFiles(port_server, path, content)
                 print " "
+                # print files_slaves
 
 
 if __name__ == '__main__':

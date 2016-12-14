@@ -86,10 +86,10 @@ def check(server_files):
             UDPSock.sendto(server_files_now[i][1], addr_server)
 
 if __name__ == '__main__':
-    #time_slave = clock.toTime(berckeley())
-    #print time_slave
     # slaveFiles = files()
     while True:
+        # time_slave = clock.toTime(berckeley())
+        # print time_slave
         server_files = contentFiles(files())
         print server_files
         filesCopy()
