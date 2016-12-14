@@ -80,6 +80,7 @@ def check(server_files):
             UDPSock.sendto("OK", addr_server)
         else:
             UDPSock.sendto("CHANGE", addr_server)
+            print clock.toTime(toSeconds())
             UDPSock.sendto("5000", addr_server)
             UDPSock.sendto(server_files_now[i][0], addr_server)
             UDPSock.sendto(server_files_now[i][1], addr_server)
@@ -90,7 +91,7 @@ if __name__ == '__main__':
         (ok, addr_self) = UDPSock.recvfrom(buf)
         if ok == "OK":
             server_files = contentFiles(files())
-            print server_files
+            # print server_files
             filesCopy()
             recieveCopy()
             check(server_files)

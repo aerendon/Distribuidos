@@ -121,7 +121,7 @@ def check():
         for __ in range(len(files_slaves[port])):
             (confirmation, addr_self) = UDPSock.recvfrom(buf)
             if confirmation == "CHANGE":
-
+                print clock.toTime(toSeconds())
                 (port_server, addr_self) = UDPSock.recvfrom(buf)
                 (path, addr_self) = UDPSock.recvfrom(buf)
                 (content, addr_self) = UDPSock.recvfrom(buf)
