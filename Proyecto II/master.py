@@ -94,6 +94,7 @@ def sendCopy():
     for copies in copy_files_slaves:
         # print copy_files_slaves[copies]
         port, content = copy_files_slaves[copies][0]
+        host = ips(i)
         address_slave = (host, port)
         UDPSock.sendto("LOOP", address_slave)
         UDPSock.sendto(copies, address_slave)
